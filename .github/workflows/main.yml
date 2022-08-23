@@ -1,0 +1,33 @@
+name: morning
+on:
+  schedule:
+  - cron:  '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  send_message:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+
+    - name: sender
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        architecture: 'x64'
+    - run: pip install -r ./requirements.txt && python ./main.py
+
+    env:
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_SECRET: ${{ secrets.APP_SECRET }}
+      TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+      USER_: ${{ secrets.USER }}
+      PROVINCE: ${{ secrets.PROVINCE }}
+      CITY: ${{ secrets.CITY }}
+      BIRTHDAY1: ${{ secrets.BIRTHDAY1 }}
+      WHETHER_ENG: ${{ secrets.WHETHER_ENG }}
+      LIZHI_API: ${{ secrets.LIZHI_API }}
+      LUCKY_API: ${{ secrets.LUCKY_API }}
+      ASTRO: ${{ secrets.ASTRO }}
